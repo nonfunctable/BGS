@@ -1,6 +1,6 @@
 _G.DiscordKey = "https://discord.com/api/webhooks/780990456708202536/YUscq8BtfwzsYKEBGPEUqSytIE00Fe7UezSDjePCsnrju0X1l0MkXwI0MXJ6LwSjMV_h"
 
-local newEvent = {["Name"] = "Christmas Event", ["Currency"] = "Bell", ["Image"] = "rbxassetid://5758711371", ["Color"] = Color3.fromRGB(235, 200, 50)}
+local newEvent = {["Name"] = "Easter Event", ["Currency"] = "Eggs", ["Image"] = "rbxassetid://5758711371", ["Color"] = Color3.fromRGB(235, 200, 50)}
 --local newEvent = {}
 local oldCurrency = {"Rainbows", "Tickets", "Presents", "CandyCorn", "CandyCanes", "Flowers"}
 local latestExcludeNames = "Zebra,Ocelot"
@@ -3417,13 +3417,13 @@ end
 				elseif (_G.autochest == "Current World Only" and _G.currentWorld ~= "Overworld") or _G.autochest == "All Worlds" and os.time() >= _G.giantchestcollected + _G.giantchestsec then
 					_G.collectingchests = true
 					collectChests("GiantChests")
-					--_G.giantchestcollected = os.time() + 30
-				--else
-					--print((_G.giantchestcollected + _G.giantchestsec - os.time()) / 60 .. " minutes until Giant chests collect again")
-					--print((_G.mediumchestcollected + _G.mediumchestsec - os.time()) / 60 .. " minutes until Medium chests collect again")
-					--print((_G.smallchestcollected + _G.smallchestsec - os.time()) / 60 .. " minutes until Small chests collect again")
-					--print((_G.coinchestcollected + _G.coinchestsec - os.time()) / 60 .. " minutes until Coin chests collect again")
-					--wait(60)
+					_G.giantchestcollected = os.time() + 30
+				else
+					print((_G.giantchestcollected + _G.giantchestsec - os.time()) / 60 .. " minutes until Giant chests collect again")
+					print((_G.mediumchestcollected + _G.mediumchestsec - os.time()) / 60 .. " minutes until Medium chests collect again")
+					print((_G.smallchestcollected + _G.smallchestsec - os.time()) / 60 .. " minutes until Small chests collect again")
+					print((_G.coinchestcollected + _G.coinchestsec - os.time()) / 60 .. " minutes until Coin chests collect again")
+					wait(60)
 				end
 				
 				_G.collectingchests = false
@@ -3938,29 +3938,29 @@ end
 				f['FireServer'](f, 'ClaimDailyReward')
 				wait(1)
 			end
-			--if farm.flags.merchItems then
-				--for i = 1, 2 do
-					--f['FireServer'](f, 'BuyMerchantItem', 3)
-					--wait(.25)
-				--end
-			--end
-			--if farm.flags.seasonChal then
-				--for i = 1, 18 do
-					--f['FireServer'](f, 'ClaimChallengeReward', i, true)
-					--wait(.25)
-					--f['FireServer'](f, 'ClaimChallengeReward', i, false)
-					--wait(.25)
-				--end
-			--end
+			if farm.flags.merchItems then
+				for i = 1, 2 do
+					f['FireServer'](f, 'BuyMerchantItem', 3)
+					wait(.25)
+				end
+			end
+			if farm.flags.seasonChal then
+				for i = 1, 18 do
+					f['FireServer'](f, 'ClaimChallengeReward', i, true)
+					wait(.25)
+					f['FireServer'](f, 'ClaimChallengeReward', i, false)
+					wait(.25)
+				end
+			end
 			if farm.flags.shardChal then
 				f['FireServer'](f, 'GetShardQuest', 'Hard')
 				wait(1)
 				f['FireServer'](f, 'ClaimShardQuestReward')
 				wait(1)
 			end
-			--if farm.flags.matchpets then
+			if farm.flags.matchpets then
 				--matchPets()
-			--end
+			end
         end
     end)
     
@@ -4016,18 +4016,18 @@ end
 				else
 					rightside = 0
 				end
-				--local leftside = 0
-				--local rightside = 0
-				--print("1: " .. leftside .. " / " .. rightside)
-				--if a[1] ~= nil then
-					--leftside = tonumber(a[1])
-				--end
-				--if a[2] ~= nil then
-					--rightside = tonumber(a[2])
-				--end
-				--print("2:" .. leftside .. " / " .. rightside)
-				--print(leftside,rightside)
-				--print(tonumber(a[1]) .. " " .. tonumber(a[2]))
+				local leftside = 0
+				local rightside = 0
+				print("1: " .. leftside .. " / " .. rightside)
+				if a[1] ~= nil then
+					leftside = tonumber(a[1])
+				end
+				if a[2] ~= nil then
+					rightside = tonumber(a[2])
+				end
+				print("2:" .. leftside .. " / " .. rightside)
+				print(leftside,rightside)
+				print(tonumber(a[1]) .. " " .. tonumber(a[2]))
                 if leftside > 0 and leftside >= rightside then
                     _G.sell = true
 					guiserv:DisplayFrame("")
@@ -4035,25 +4035,25 @@ end
 					wait(.1)
 					local oldWorld = _G.currentWorld
 					local oldBuff = _G.currentBuff
-					--changeBuff(_G.currentBuff,"Bubbles")
+					changeBuff(_G.currentBuff,"Bubbles")
 					tptoDrops(_G.currentWorld,_G.SellWorld)
-					--wait(2)
+					wait(2)
 					repeat
 						f['FireServer'](f,"Teleport","Sell")
 						wait(.25)
 						f['FireServer'](f,'Sell')
 						wait(.25)
 					until string.split(game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui:WaitForChild("StatsFrame").Bubble.Amount.Text,'/')[1] ~= leftside
-					--changeBuff(_G.currentBuff,oldBuff)
+					changeBuff(_G.currentBuff,oldBuff)
 					tptoDrops(_G.SellWorld,oldWorld)
-					--wait(2)
+					wait(2)
 					if farm.flags.Drops then
 						for k,d in pairs(_G.islandchests["GiantChests"]) do
 							for i,v in pairs(game:GetService("Workspace").FloatingIslands:GetDescendants()) do
 								if v.Name == "Chest" and v.ClassName == "Model" and v.Parent.Name == d then 
-									--game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = v.Parent.Collision.CFrame
+									game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = v.Parent.Collision.CFrame
 									f["FireServer"](f, "TeleportToCheckpoint", v.Parent.Name)
-									--wait(2)
+									wait(2)
 								end
 							end
 						end
@@ -4067,31 +4067,31 @@ end
     end)
     
 	_G.autoguessing = false
-	--_G.autoguessstarttime = 0
-	--guessboard.SurfaceGui.Frame.Intro.Changed:Connect(function() if guessboard.SurfaceGui.Frame.Intro.Visible then _G.autoguessstarttime = os.time() + 2 end end)
+	_G.autoguessstarttime = 0
+	guessboard.SurfaceGui.Frame.Intro.Changed:Connect(function() if guessboard.SurfaceGui.Frame.Intro.Visible then _G.autoguessstarttime = os.time() + 2 end end)
     game:GetService("Workspace").GuessThatPet.GuessThatPetBoard.SurfaceGui.Frame.Main.Pet.Changed:Connect(function()
 		if not _G.collectingchests and not _G.sell and _G.autoguess == "Auto Guess TP" then
 			_G.autoguessing = true
 			local oldWorld = _G.currentWorld
 			local oldBuff = _G.currentBuff
 			local guessboard = game:GetService("Workspace").GuessThatPet.GuessThatPetBoard
-			--local sentguess = false
-			--changeBuff(_G.currentBuff,"Gems")
+			local sentguess = false
+			changeBuff(_G.currentBuff,"Gems")
 			tptoDrops(_G.currentWorld,"Overworld")
-			--f["FireServer"](f, "Teleport", "EventLeave")
-			--game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame,guessboard.CFrame.Y - 2,game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Z)
-			--toTarget(game.Players.LocalPlayer.Character.HumanoidRootPart.Position,guessboard.Position + Vector3.new(0,-2,0),guessboard.CFrame + Vector3.new(0,-2, 0))
-			--repeat
-				--wait(.1)
-				--if not sentguess and guessboard.Position.X - game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X <= farm.flags.XOff and guessboard.Position.Z - game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z <= farm.flags.ZOff  then
-					--for i,d in pairs(pets) do
-						--if d == game:GetService("Workspace").GuessThatPet.GuessThatPetBoard.SurfaceGui.Frame.Main.Pet.Image then
-							--game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(i, "All")
-							--sentguess = true
-						--end
-					--end
-				--end
-			--until sentguess
+			f["FireServer"](f, "Teleport", "EventLeave")
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame,guessboard.CFrame.Y - 2,game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Z)
+			toTarget(game.Players.LocalPlayer.Character.HumanoidRootPart.Position,guessboard.Position + Vector3.new(0,-2,0),guessboard.CFrame + Vector3.new(0,-2, 0))
+			repeat
+				wait(.1)
+				if not sentguess and guessboard.Position.X - game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X <= farm.flags.XOff and guessboard.Position.Z - game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z <= farm.flags.ZOff  then
+					for i,d in pairs(pets) do
+						if d == game:GetService("Workspace").GuessThatPet.GuessThatPetBoard.SurfaceGui.Frame.Main.Pet.Image then
+							game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(i, "All")
+							sentguess = true
+						end
+					end
+				end
+			until sentguess
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame,guessboard.CFrame.Y - 2,game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Z)
 			toTarget(game.Players.LocalPlayer.Character.HumanoidRootPart.Position,guessboard.Position + Vector3.new(0,-2,0),guessboard.CFrame + Vector3.new(0,-2, 0))
 			for i,d in pairs(pets) do
@@ -4327,9 +4327,9 @@ end
 
 	_G.itemInv = {}
 	_G.tradeList = {}
-	--_G.tradeNames = "" --"Paragon,Mythic Paragon,Sakuralord,Mythic Sakuralord,Shard"
-	--_G.tradeShiny = false
-	--_G.tradeTo = "" --"MotorboatFloater" --"PremiumSeating" -- "MoarCowball"
+	_G.tradeNames = "" --"Paragon,Mythic Paragon,Sakuralord,Mythic Sakuralord,Shard"
+	_G.tradeShiny = false
+	_G.tradeTo = "" --"MotorboatFloater" --"PremiumSeating" -- "MoarCowball"
 	_G.tradeTo = ""
 	_G.tradeNames = "All"
 	_G.tradeShiny = true
